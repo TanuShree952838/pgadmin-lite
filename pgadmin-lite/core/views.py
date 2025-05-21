@@ -47,7 +47,7 @@ def table_crud(request, table_name):
     try:
         id_index = columns.index('id')
     except ValueError:
-        id_index = None  # Handle gracefully if no 'id' column exists
+        id_index = None
 
     return render(request, 'core/table_crud.html', {
         'table_name': table_name,
@@ -108,8 +108,9 @@ def run_query_view(request):
             try:
                 with connection.cursor() as cursor:
                     cursor.execute(query)
-                    columns = [col[0] for col in cursor.description]
-                    rows = cursor.fetchall()
+                    if cursor.description:
+                        columns = [col[0] for col in cursor.description]
+                        rows = cursor.fetchall()
                 message = "Query executed successfully."
             except Exception as e:
                 error = f"Error: {e}"
