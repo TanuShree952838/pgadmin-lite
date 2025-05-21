@@ -1,7 +1,6 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.db import connection
-from django.http import JsonResponse
-from django.apps import apps
+
 
 # Utility to fetch columns of a table dynamically
 def get_columns(table_name):
